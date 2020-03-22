@@ -1,10 +1,8 @@
-from keras.optimizers import Adam
 from keras.preprocessing.image import ImageDataGenerator
-
 from utils import *
 import time
 from model.mobilenet_v3_large import MobileNetV3_Large
-from kalman_filter import *
+
 
 
 def generate(batch, shape, test):
