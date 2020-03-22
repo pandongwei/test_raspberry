@@ -2,6 +2,9 @@ from keras.preprocessing.image import ImageDataGenerator
 from utils import *
 import time
 from model.mobilenet_v3_large import MobileNetV3_Large
+import os
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = ""
 
 
 
@@ -26,16 +29,18 @@ def generate(batch, shape, test):
 
 
 def train():
-    weight_path = ''
+    weight_path = 'train_result/network/MobileNetV3_large_model_final.h5'
     image_path = '/home/pi/master-thesis/dataset-sample-test'
-    batch_size = 4
+    image_path = '/home/pan/master-thesis-in-mrt/4classes-classification/dataset-test'
+    batch_size = 16
     model = MobileNetV3_Large((224,224,3), 4).build()
     model.load_weights(weight_path, by_name=True)
+    model.compile(loss='categorical_crossentropy', optimizer='adam')
 
     # test the result
     train_generator, count1 = generate(batch_size, (224,224),image_path)
     start = time.time()
-    result = model.evaluate_generator(train_generator,use_multiprocessing=True)
+    result = model.evaluate_generator(train_generator,use_multiprocessing=False)
     time_elapsed = time.time() - start
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 
