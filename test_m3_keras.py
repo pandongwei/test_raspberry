@@ -31,7 +31,7 @@ def generate(batch, shape, test):
 def train():
     weight_path = 'train_result/network/MobileNetV3_large_model_final.h5'
     image_path = '/home/pi/master-thesis/dataset-sample-test'
-    image_path = '/home/pan/master-thesis-in-mrt/4classes-classification/dataset-test'
+    #image_path = '/home/pan/master-thesis-in-mrt/4classes-classification/dataset-test'
     batch_size = 16
     model = MobileNetV3_Large((224,224,3), 4).build()
     model.load_weights(weight_path, by_name=True)
@@ -41,6 +41,7 @@ def train():
     train_generator, count1 = generate(batch_size, (224,224),image_path)
     start = time.time()
     result = model.evaluate_generator(train_generator,use_multiprocessing=False)
+    print('result: ',result)
     time_elapsed = time.time() - start
     print('Training complete in {:.0f}m {:.0f}s'.format(time_elapsed // 60, time_elapsed % 60))
 

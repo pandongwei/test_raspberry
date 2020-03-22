@@ -126,10 +126,11 @@ def main():
     test_model = 'm2'  #m2 / 3d-m2
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     image_path = '/home/pi/master-thesis/dataset-sample-test'
+    #image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
     batch_size = 4
     if test_model =='m2':
-        weight_path = 'train_result/network/MobileNetV2_4channels_model_final_93.57%'
-        model = mobilenetv2_4channels(pretrained=True,n_class=4)
+        weight_path = 'train_result/network/MobileNetV2_4channels_model_final_93.57%.pkl'
+        model = mobilenetv2_4channels(pretrained=False,n_class=4)
         test_dataloader = DataLoader(SequentialDataset(root_path=image_path, rescale=1 / 255.),
                                      batch_size=batch_size, num_workers=4)
     elif test_model == '3d-m2':
