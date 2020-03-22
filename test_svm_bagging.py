@@ -9,8 +9,8 @@ from sklearn.ensemble import BaggingClassifier
 def main():
 
     #测试部分开始
-    #image_path = '/home/pi/master-thesis/dataset-test'
-    image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
+    image_path = '/home/pi/master-thesis/dataset-sample-test'
+    # image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
     model_path_svm = 'train_result/traditional_method/hog_svm_whole_83.8%_85.12%_87.98%.joblib'
     model_path_bagging = 'train_result/traditional_method/train_whole_dataset_bagging_83.42%_85.69%_88.57%.joblib'
 
