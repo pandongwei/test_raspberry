@@ -24,8 +24,8 @@ def main():
     }
 
     # Load TFLite model and allocate tensors.
-    interpreter = tf.lite.Interpreter(model_path="logs/fit/20191223-124218/weights_best_pre_93.67%_94.32%_96.77%_3.7.tflite")
-    #interpreter = tf.lite.Interpreter(model_path="logs/fit/20191223-124218/mobilenet_v2_1.0_224.tflite")
+    interpreter = tf.lite.Interpreter(model_path="/home/pi/master-thesis/test_raspberry/train_result/network/MobileNetV2_weights_93.67%_94.32%_96.77%_py3.7.tflite")
+    interpreter = tf.lite.Interpreter(model_path="/home/pi/master-thesis/test_raspberry/train_result/network/weights_best_pre_93.67%_94.32%_96.77%.tflite")
     interpreter.allocate_tensors()
 
     # Get input and output tensors.
@@ -36,7 +36,7 @@ def main():
     correct = 0
     sum = 0.0
     #input_shape = input_details[0]['shape']
-    test_dir = "/home/pan/master-thesis-in-mrt/data/dataset-evaluation"
+    test_dir = "/home/pi/master-thesis/dataset-test"
     #test_dir = '/media/pandongwei/Extreme SSD/mrt-storage/data/dataset-test'
     #test_dir = '/home/pi/usbdisk/mrt-storage/data/dataset-test'
 
@@ -53,7 +53,7 @@ def main():
     samples = np.asanyarray(samples)
     print_duration(start)
     print('finish loading image')
-    samples = samples / 255.
+    samples = samples/255.
 
     for i in range(len(samples)):
         start = cv2.getTickCount()
