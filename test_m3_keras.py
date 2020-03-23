@@ -30,7 +30,7 @@ def generate(batch, shape, test):
 
 def train():
     weight_path = 'train_result/network/MobileNetV3_large_model_final.h5'
-    image_path = '/home/pi/master-thesis/dataset-sample-test'
+    image_path = '/home/pi/master-thesis/dataset-test'
     #image_path = '/home/pan/master-thesis-in-mrt/4classes-classification/dataset-test'
     batch_size = 16
     model = MobileNetV3_Large((224,224,3), 4).build()

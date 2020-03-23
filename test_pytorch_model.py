@@ -125,7 +125,7 @@ def maddern2014(image,alpha,inv=False):
 def main():
     test_model = 'm2'  #m2 / 3d-m2
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    image_path = '/home/pi/master-thesis/dataset-sample-test'
+    image_path = '/home/pi/master-thesis/dataset-test'
     #image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
     batch_size = 4
     if test_model =='m2':
@@ -139,7 +139,7 @@ def main():
         test_dataloader = DataLoader(SequentialDataset_sequence(root_path=image_path, rescale=1 / 255.),
                                      batch_size=batch_size, num_workers=4)
 
-    weights = torch.load(weight_path)
+    weights = torch.load(weight_path,map_location=torch.device('cpu'))
     model.load_state_dict(weights)
     model = model.to(device)
 

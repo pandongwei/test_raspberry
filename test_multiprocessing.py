@@ -46,8 +46,8 @@ if __name__ == '__main__':
     # Test model
     #test_dir = "/home/pan/master-thesis-in-mrt/data/dataset-test"
     # test_dir = '/media/pandongwei/Extreme SSD/mrt-storage/data/dataset-test'
-    image_path = '/home/pi/usbdisk/mrt-storage/data/dataset-test'
-    model_path = ''
+    image_path = '/home/pi/master-thesis/dataset-test'
+    model_path = '/home/pi/master-thesis/test_raspberry/train_result/network/MobileNetV2_weights_93.67%_94.32%_96.77%_py3.7.tflite'
 
     correct = 0
     sum_image = 0.0
