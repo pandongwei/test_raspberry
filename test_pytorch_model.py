@@ -165,5 +165,6 @@ def main():
     epoch_acc = running_corrects / test_size
     print(epoch_acc)
 
+
 if __name__ == '__main__':
     main()

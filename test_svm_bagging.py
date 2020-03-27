@@ -9,10 +9,16 @@ from sklearn.ensemble import BaggingClassifier
 def main():
 
     #测试部分开始
+    DATA_CLASS_NAMES = {
+        "bicycle-lane": 0,
+        "bicycle-lane-and-pedestrian": 1,
+        "car-lane": 2,
+        "pedestrian": 3
+    }
     image_path = '/home/pi/master-thesis/dataset-test'
-    # image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
+    #image_path = '/home/pan/master-thesis-in-mrt/data/dataset-test'
     model_path_svm = 'train_result/traditional_method/train_whole_dataset_svm_3,7.joblib'
-    model_path_bagging = 'train_result/traditional_method/train_whole_dataset_bagging_3,7.joblib'
+    #model_path_bagging = 'train_result/traditional_method/train_whole_dataset_bagging_3,7.joblib'
 
     path, class_names = generate_path(image_path)
 
@@ -32,7 +38,7 @@ def main():
     del test_imgs_data
     print_duration(start)
     print("Performing batch  classification over all data  ...")
-    clf = load(model_path_bagging)
+    clf = load(model_path_svm)
     result = clf.score(samples,class_labels)
 
     print_duration(start)
@@ -53,6 +59,42 @@ def main():
     error_kalman, missclass_list_kalman = errorCalculation_return_missclassList(class_labels, output_kalman)
     print("after combining kalman filter the classifier got {}% of the testing examples correct!".format(round((1.0 - error_kalman) * 100, 2)))
     print_duration(start)
+
+    # Test model
+    start_1 = cv2.getTickCount()
+
+    correct = 0
+    sum = 0.0
+    for root, dirs, files in os.walk(image_path, topdown=True):
+        for name in dirs:
+            path_front = os.path.join(root, name)
+            class_name = name
+            a = os.listdir(path_front)
+            a.sort()
+            for f in a:
+                start = cv2.getTickCount()
+                image_path = os.path.join(path_front, f)
+                img = cv2.imread(image_path)
+                img_hog = cv2.resize(img,
+                                     (params.DATA_WINDOW_SIZE[0], params.DATA_WINDOW_SIZE[1]),
+                                     interpolation=cv2.INTER_AREA)
+                hog_descriptor = cv2.HOGDescriptor().compute(img_hog)
+                hog_descriptor = hog_descriptor.reshape((1, 3780))
+                label = DATA_CLASS_NAMES.get(class_name)
+                clf = load(model_path_svm)
+                result = clf.predict_proba(hog_descriptor)
+                output = result.argmax()
+                if output == label:
+                    correct += 1
+                sum += 1
+                time = (cv2.getTickCount() - start) / cv2.getTickFrequency()
+                print((sum,'   ',output,"   Took {}".format(format_time(time))))
+    acc = float(correct/sum)
+    print(correct)
+    print('the accuracy is: {}%'.format(round(acc*100,2)))
+
+    time_1 = (cv2.getTickCount() - start_1) / cv2.getTickFrequency()
+    print("Took totally {}".format(format_time(time_1)))
 
 ################################################################################
 
