@@ -21,7 +21,7 @@ def main():
     #model_path_bagging = 'train_result/traditional_method/train_whole_dataset_bagging_3,7.joblib'
 
     path, class_names = generate_path(image_path)
-
+    '''
     test_imgs_data = load_images(path, class_names)
     #test_imgs_data = shuffle(test_imgs_data)
     print("testing with {} test-images".format(len(test_imgs_data)))
@@ -59,10 +59,10 @@ def main():
     error_kalman, missclass_list_kalman = errorCalculation_return_missclassList(class_labels, output_kalman)
     print("after combining kalman filter the classifier got {}% of the testing examples correct!".format(round((1.0 - error_kalman) * 100, 2)))
     print_duration(start)
-
+    '''
     # Test model
     start_1 = cv2.getTickCount()
-
+    clf = load(model_path_svm)
     correct = 0
     sum = 0.0
     for root, dirs, files in os.walk(image_path, topdown=True):
@@ -81,7 +81,6 @@ def main():
                 hog_descriptor = cv2.HOGDescriptor().compute(img_hog)
                 hog_descriptor = hog_descriptor.reshape((1, 3780))
                 label = DATA_CLASS_NAMES.get(class_name)
-                clf = load(model_path_svm)
                 result = clf.predict_proba(hog_descriptor)
                 output = result.argmax()
                 if output == label:
