@@ -66,8 +66,8 @@ def main():
 
   correct = 0
   sum = 0.0
-  #images_path = args.image_path
-  images_path = '/home/pandongwei/master-thesis-in-mrt/dataset-test'
+  images_path = args.image_path
+  #images_path = '/home/pandongwei/master-thesis-in-mrt/dataset-test'
   for root, dirs, files in os.walk(images_path, topdown=True):
       for name in dirs:
           path_front = os.path.join(root, name)
