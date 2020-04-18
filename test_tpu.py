@@ -37,7 +37,7 @@ def main():
   parser = argparse.ArgumentParser(
       formatter_class=argparse.ArgumentDefaultsHelpFormatter)
   parser.add_argument(
-      '-m', '--model', default='/home/pandongwei/master-thesis-in-mrt/test_raspberry/train_result/output_tflite_graph_edgetpu.tflite',
+      '-m', '--model', default='/home/pi/master-thesis/test_raspberry/train_result/output_tflite_graph_edgetpu.tflite',
       help='File path of .tflite file.')
   parser.add_argument(
       '-i', '--image_path', default='/home/pi/usbdisk/mrt-storage/data/dataset-test',
@@ -56,8 +56,9 @@ def main():
       "car-lane": 2,
       "pedestrian": 3
   }
-
-  interpreter = make_interpreter(args.model)
+  #model = '/home/pandongwei/master-thesis-in-mrt/test_raspberry/train_result/output_tflite_graph_edgetpu.tflite'
+  model = args.model
+  interpreter = make_interpreter(model)
   interpreter.allocate_tensors()
   output_details = interpreter.get_output_details()
   size = util_tpu.input_size(interpreter)
