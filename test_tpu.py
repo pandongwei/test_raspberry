@@ -40,7 +40,7 @@ def main():
       '-m', '--model', default='/home/pi/master-thesis/test_raspberry/train_result/output_tflite_graph_edgetpu.tflite',
       help='File path of .tflite file.')
   parser.add_argument(
-      '-i', '--image_path', default='/home/pi/usbdisk/mrt-storage/data/dataset-test',
+      '-i', '--image_path', default='/home/pi/master-thesis/dataset-test',
       help='Image to be classified.')
   parser.add_argument(
       '-k', '--top_k', type=int, default=1,
